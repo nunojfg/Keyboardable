@@ -7,7 +7,8 @@ Add this protocol to your ViewController and call addObserversForKeyboard(), you
 ```
 class AwesomeViewController : UIViewController, AdjustableForKeyboard
 {
-
+   @IBOutlet var bottomConstraint:NSLayoutConstraint!
+   
    override func viewDidLoad()
    {
       super.viewDidLoad()
