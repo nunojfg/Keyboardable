@@ -7,11 +7,11 @@ Add this protocol to your ViewController and call addObserversForKeyboard(), you
 <code>
 class AwesomeViewController : UIViewController, AdjustableForKeyboard
 {
-...
 
    override func viewDidLoad()
    {
       super.viewDidLoad()
       addObserversForKeyboard()
+   }
 ...
 </code>
