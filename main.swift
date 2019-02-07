@@ -5,11 +5,11 @@ extension AdjustableForKeyboard where Self: UIViewController {
     }
     
     func addObserversForKeyboard() {
-        NotificationCenter.default
+       _ = NotificationCenter.default
             .addObserver(forName: NSNotification.Name.UIKeyboardWillShow,object: nil,queue: nil) { [weak self] notification in
                 self?.keyboardWillShow(notification: notification as NSNotification)}
         
-        NotificationCenter.default
+        _ = NotificationCenter.default
             .addObserver(forName: NSNotification.Name.UIKeyboardWillHide,object: nil,queue: nil) { [weak self] notification in
                 self?.keyboardWillHide(notification: notification as NSNotification)}
     }
