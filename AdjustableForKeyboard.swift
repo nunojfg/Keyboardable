@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol AdjustableForKeyboard {
-    var bottomConstraint:NSLayoutConstraint! { get set }
+    var bottomConstraint: NSLayoutConstraint! { get set }
     var offset: CGFloat { get set }
     func keyboardWillShow(notification: NSNotification)
     func keyboardWillHide(notification: NSNotification)
