@@ -1,3 +1,11 @@
+
+protocol AdjustableForKeyboard {
+    var bottomConstraint:NSLayoutConstraint! { get set }
+    var offset: CGFloat { get set }
+    func keyboardWillShow(notification: NSNotification)
+    func keyboardWillHide(notification: NSNotification)
+}
+
 extension AdjustableForKeyboard where Self: UIViewController {
     
     var offset: CGFloat {
@@ -32,11 +40,4 @@ extension AdjustableForKeyboard where Self: UIViewController {
         self.bottomConstraint.constant = -self.offset
         self.view.layoutIfNeeded()
     }
-}
-
-protocol AdjustableForKeyboard {
-    var bottomConstraint:NSLayoutConstraint! { get set }
-    var offset: CGFloat { get set }
-    func keyboardWillShow(notification: NSNotification)
-    func keyboardWillHide(notification: NSNotification)
 }
