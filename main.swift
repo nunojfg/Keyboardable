@@ -1,3 +1,5 @@
+import Foundation
+import UIKit
 
 protocol AdjustableForKeyboard {
     var bottomConstraint:NSLayoutConstraint! { get set }
