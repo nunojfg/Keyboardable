@@ -1,11 +1,11 @@
-import Foundation
+
 import UIKit
 
-protocol AdjustableForKeyboard {
+protocol AdjustableForKeyboard: class {
     var bottomConstraint: NSLayoutConstraint! { get set }
     var offset: CGFloat { get set }
-    func keyboardWillShow(notification: NSNotification)
-    func keyboardWillHide(notification: NSNotification)
+    func addKeyboardObservers()
+    func removeKeyboardObservers()
 }
 
 extension AdjustableForKeyboard where Self: UIViewController {
@@ -14,32 +14,39 @@ extension AdjustableForKeyboard where Self: UIViewController {
         return 0
     }
     
-    func addObserversForKeyboard() {
-       _ = NotificationCenter.default
-            .addObserver(forName: NSNotification.Name.UIKeyboardWillShow,object: nil,queue: nil) { [weak self] notification in
-                self?.keyboardWillShow(notification: notification as NSNotification)}
+    func addKeyboardObservers() {
         
         _ = NotificationCenter.default
-            .addObserver(forName: NSNotification.Name.UIKeyboardWillHide,object: nil,queue: nil) { [weak self] notification in
-                self?.keyboardWillHide(notification: notification as NSNotification)}
-    }
-    
-    func removeObserversForKeyboard() {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    func keyboardWillShow(notification: NSNotification) {
-        let info = notification.userInfo!
-        guard let keyboardFrame: CGRect = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-            return
+            .addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil,queue: nil) { [weak self] notification in
+                self?.keyboardWillShow(notification: notification)
         }
         
-        self.bottomConstraint.constant = -(keyboardFrame.size.height + 8)
-        self.view.layoutIfNeeded()
+        _ = NotificationCenter.default
+            .addObserver(forName: UIResponder.keyboardWillHideNotification,object: nil,queue: nil) { [weak self] notification in
+                self?.keyboardWillHide(notification: notification)
+        }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    func removeKeyboardObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillShow(notification: Notification) {
+        
+        guard
+            let info = notification.userInfo,
+            let keyboardFrame = info[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+                return
+        }
+        
+        self.bottomConstraint.constant = -(keyboardFrame.size.height + self.offset)
+        view.layoutIfNeeded()
+    }
+    
+    func keyboardWillHide(notification: Notification) {
         self.bottomConstraint.constant = -self.offset
-        self.view.layoutIfNeeded()
+        view.layoutIfNeeded()
     }
 }
+
