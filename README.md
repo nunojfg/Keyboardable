@@ -10,7 +10,7 @@ class AwesomeViewController : UIViewController, AdjustableForKeyboard
    override func viewDidLoad()
    {
       super.viewDidLoad()
-      addObserversForKeyboard()
+      addKeyboardObservers()
    }
 ...
 ```
