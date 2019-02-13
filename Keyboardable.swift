@@ -1,14 +1,14 @@
 
 import UIKit
 
-protocol AdjustableForKeyboard: class {
+protocol Keyboardable: class {
     var bottomConstraint: NSLayoutConstraint! { get set }
     var offset: CGFloat { get set }
     func addKeyboardObservers()
     func removeKeyboardObservers()
 }
 
-extension AdjustableForKeyboard where Self: UIViewController {
+extension Keyboardable where Self: UIViewController {
     
     var offset: CGFloat {
         return 0
