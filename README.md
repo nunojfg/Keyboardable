@@ -14,3 +14,9 @@ class AwesomeViewController : UIViewController, Keyboardable
    }
 ...
 ```
+
+Roadmap:
+
+1. Add example project
+2. Add cocoapods integration
+...
