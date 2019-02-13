@@ -1,9 +1,9 @@
-# AdjustableForKeyboard
+# Keyboardable
 
 Add this protocol to your ViewController and call addObserversForKeyboard(), you'll also need to add a bottomConstraint to your XIB/Storyboard/Code. example:
 
 ```
-class AwesomeViewController : UIViewController, AdjustableForKeyboard
+class AwesomeViewController : UIViewController, Keyboardable
 {
    @IBOutlet var bottomConstraint:NSLayoutConstraint!
    
